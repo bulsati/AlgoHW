@@ -1,0 +1,178 @@
+# Introduction to the Design and Analysis of Algorithms
+
+# Автор: Ахметшариф Сати
+# Университет: Казахский национальный университет имени аль-Фараби
+# Специальность: МКМ, Information Technologies & Artificial Intelligence
+
+
+# Раздел 1.1: Разработка алгоритмов
+
+
+# Ex. 1.1.4: Computing sqrt(n)
+
+def sqrt_n(n):
+    x = n
+    y = 1
+    epsilon = 0.000001
+
+    while x - y > epsilon:
+        x = (x + y) / 2
+        y = n / x
+
+    return x
+
+
+# Ex. 1.1.5: Quadratic Roots
+
+def quadratic_roots(a, b, c):
+    if a == 0:
+        return -c / b
+
+    D = b * b - 4 * a * c
+
+    if D < 0:
+        return "Нет действительных корней"
+
+    if D == 0:
+        return -b / (2 * a)
+
+    root1 = (-b + sqrt_n(D)) / (2 * a)
+    root2 = (-b - sqrt_n(D)) / (2 * a)
+
+    return root1, root2
+
+
+# Ex. 1.1.6: Binary Representation
+
+def dec_to_bin(n):
+    binary_str = ""
+
+    while n > 0:
+        remainder = n % 2
+        binary_str = str(remainder) + binary_str
+        n = n // 2
+
+    return binary_str
+
+
+# Ex. 1.1.7: ATM Cash Dispensing
+
+def dispense_cash(amount):
+    denominations = [10000, 5000, 2000, 1000, 500, 200, 100]
+    result = []
+
+    for d in denominations:
+        count = amount // d
+
+        if count > 0:
+            result.append((count, d))
+            amount = amount % d
+
+    if amount > 0:
+        return "Ошибка: невозможно выдать запрошенную сумму"
+
+    return result
+
+
+# Ex. 1.1.8: Closest Elements in Array
+
+def closest_pair_dist(A):
+    A.sort()
+    min_dist = float("inf")
+
+    for i in range(len(A) - 1):
+        if A[i + 1] - A[i] < min_dist:
+            min_dist = A[i + 1] - A[i]
+
+    return min_dist
+
+
+# Ex. 1.1.9: Array Operations
+
+def find_max(A):
+    max_val = A[0]
+
+    for i in range(1, len(A)):
+        if A[i] > max_val:
+            max_val = A[i]
+
+    return max_val
+
+
+def calculate_average(A):
+    if len(A) == 0:
+        return 0
+
+    total = 0
+
+    for i in range(len(A)):
+        total += A[i]
+
+    return total / len(A)
+
+
+# Раздел 1.2: Анализ алгоритмов
+
+
+# Ex. 1.2.4: Euclid's Algorithm
+
+def euclid(m, n):
+    while n != 0:
+        m, n = n, m % n
+
+    return m
+
+
+# gcd(31415, 14142)
+# 31415 mod 14142 = 3131
+# 14142 mod 3131 = 1618
+# 3131 mod 1618 = 1513
+# 1618 mod 1513 = 105
+# 1513 mod 105 = 43
+# 105 mod 43 = 19
+# 43 mod 19 = 5
+# 19 mod 5 = 4
+# 5 mod 4 = 1
+# 4 mod 1 = 0
+# Answer: 1
+
+
+# Ex. 1.2.5
+
+# m = q * n + r
+# r = m mod n
+#
+# Any common divisor of m and n also divides
+# r = m - q * n.
+#
+# Any common divisor of n and r also divides
+# m = q * n + r.
+#
+# Therefore:
+# gcd(m, n) = gcd(n, m mod n)
+
+
+# Ex. 1.2.6
+
+# If m < n:
+# m mod n = m
+#
+# The next step is gcd(n, m).
+# The algorithm swaps the numbers.
+# This can happen only once.
+
+
+# Ex. 1.2.9
+
+# Minimum number of divisions: 1
+#
+# Example:
+# 10 mod 5 = 0
+#
+# Maximum number of divisions: 4
+#
+# Example:
+# 8 mod 5 = 3
+# 5 mod 3 = 2
+# 3 mod 2 = 1
+# 2 mod 1 = 0
